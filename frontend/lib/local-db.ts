@@ -1,0 +1,1 @@
+export { type LocalDbSchema, readDb, writeDb } from '@/backend/lib/local-db'
