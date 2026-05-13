@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { usePathname } from './shims/next-navigation'
+import { AdminProvider } from '@/lib/admin-context'
 
 import HomePage from '../app/page'
 import CategoryPage from '../app/category/page'
@@ -33,15 +34,19 @@ export default function App() {
     return () => window.removeEventListener('app:refresh', handleRefresh)
   }, [])
 
-  if (pathname === '/' || pathname === '') return <HomePage key={refreshKey} />
-  if (pathname === '/category') return <CategoryPage key={refreshKey} />
-  if (pathname === '/profile') return <ProfileRoute key={refreshKey} />
-  if (pathname === '/guestbook') return <GuestbookRoute key={refreshKey} />
-  if (pathname === '/comic') return <ComicRoute key={refreshKey} />
-  if (pathname.startsWith('/comic/')) return <ComicDetailRoute key={refreshKey} id={pathname.split('/')[2] || ''} />
-  if (pathname === '/storyboard') return <StoryboardRoute key={refreshKey} />
-  if (pathname.startsWith('/storyboard/')) return <StoryboardDetailRoute key={refreshKey} id={pathname.split('/')[2] || ''} />
-  if (pathname === '/illustration') return <IllustrationRoute key={refreshKey} />
-  if (pathname.startsWith('/illustration/')) return <IllustrationDetailRoute key={refreshKey} id={pathname.split('/')[2] || ''} />
-  return <NotFoundPage />
+  return (
+    <AdminProvider>
+      {pathname === '/' || pathname === '' ? <HomePage key={refreshKey} /> : null}
+      {pathname === '/category' ? <CategoryPage key={refreshKey} /> : null}
+      {pathname === '/profile' ? <ProfileRoute key={refreshKey} /> : null}
+      {pathname === '/guestbook' ? <GuestbookRoute key={refreshKey} /> : null}
+      {pathname === '/comic' ? <ComicRoute key={refreshKey} /> : null}
+      {pathname.startsWith('/comic/') ? <ComicDetailRoute key={refreshKey} id={pathname.split('/')[2] || ''} /> : null}
+      {pathname === '/storyboard' ? <StoryboardRoute key={refreshKey} /> : null}
+      {pathname.startsWith('/storyboard/') ? <StoryboardDetailRoute key={refreshKey} id={pathname.split('/')[2] || ''} /> : null}
+      {pathname === '/illustration' ? <IllustrationRoute key={refreshKey} /> : null}
+      {pathname.startsWith('/illustration/') ? <IllustrationDetailRoute key={refreshKey} id={pathname.split('/')[2] || ''} /> : null}
+      {pathname !== '/' && pathname !== '' && pathname !== '/category' && pathname !== '/profile' && pathname !== '/guestbook' && pathname !== '/comic' && !pathname.startsWith('/comic/') && pathname !== '/storyboard' && !pathname.startsWith('/storyboard/') && pathname !== '/illustration' && !pathname.startsWith('/illustration/') ? <NotFoundPage /> : null}
+    </AdminProvider>
+  )
 }
