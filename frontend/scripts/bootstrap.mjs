@@ -1,16 +1,21 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { execSync } from 'node:child_process'
+import { execFileSync } from 'node:child_process'
+import { createRequire } from 'node:module'
 
 const rootDir = process.cwd()
 const distDir = join(rootDir, 'dist')
-const nextStartBin = join(rootDir, 'node_modules', 'next', 'dist', 'bin', 'next')
+const require = createRequire(import.meta.url)
+const nextStartBin = require.resolve('next/dist/bin/next')
 
 if (!existsSync(join(distDir, '.next'))) {
-  execSync('npm run build', { stdio: 'inherit' })
+  execFileSync('node', ['scripts/build.mjs'], {
+    stdio: 'inherit',
+    cwd: rootDir,
+  })
 }
 
-execSync(`node "${nextStartBin}" start -H 0.0.0.0 -p ${process.env.PORT || 3000}`, {
+execFileSync('node', [nextStartBin, 'start', '-H', '0.0.0.0', '-p', String(process.env.PORT || 3000)], {
   stdio: 'inherit',
   cwd: distDir,
 })

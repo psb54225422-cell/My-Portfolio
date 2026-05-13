@@ -17,26 +17,30 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": [
         "./*"
       ],
-      "@/backend/*": [
-        "../backend/*"
+      "next/link": [
+        "./src/shims/next-link.tsx"
+      ],
+      "next/image": [
+        "./src/shims/next-image.tsx"
+      ],
+      "next/navigation": [
+        "./src/shims/next-navigation.ts"
+      ],
+      "next/font/google": [
+        "./src/shims/next-font-google.ts"
       ]
     }
   },
   "include": [
-    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    "vite.config.ts"
   ],
   "exclude": [
     "node_modules"

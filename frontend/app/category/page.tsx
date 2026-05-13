@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -50,20 +49,15 @@ export default function CategoryPage() {
     }
 
     async function fetchSettings() {
-      const supabase = createClient()
-      const { data } = await supabase
-        .from('site_settings')
-        .select('setting_key, setting_value')
-        .in('setting_key', ['category_background', 'category_gif'])
+      try {
+        const response = await fetch('/api/settings')
+        if (!response.ok) return
 
-      if (data) {
-        data.forEach(item => {
-          if (item.setting_key === 'category_background') {
-            setBackgroundUrl(item.setting_value || undefined)
-          } else if (item.setting_key === 'category_gif') {
-            setGifUrl(item.setting_value || undefined)
-          }
-        })
+        const settings = await response.json()
+        setBackgroundUrl(settings.category_background || settings.start_page_image || undefined)
+        setGifUrl(settings.category_gif || undefined)
+      } catch (error) {
+        console.error('Failed to fetch category settings:', error)
       }
     }
 

@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { createClient } from '@/lib/supabase/client'
 import { useAdmin } from '@/lib/admin-context'
 import { CategoryNav } from '@/components/category-nav'
 import { Button } from '@/components/ui/button'
