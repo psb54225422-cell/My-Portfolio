@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { usePathname } from './shims/next-navigation'
 import { AdminProvider } from '@/lib/admin-context'
+import { BgmPlayer } from '@/components/bgm-player'
+import { CursorSparkles } from '@/components/cursor-sparkles'
+import { GlobalBackButton } from '@/components/global-back-button'
 
 import HomePage from '../app/page'
 import CategoryPage from '../app/category/page'
@@ -47,6 +50,9 @@ export default function App() {
       {pathname === '/illustration' ? <IllustrationRoute key={refreshKey} /> : null}
       {pathname.startsWith('/illustration/') ? <IllustrationDetailRoute key={refreshKey} id={pathname.split('/')[2] || ''} /> : null}
       {pathname !== '/' && pathname !== '' && pathname !== '/category' && pathname !== '/profile' && pathname !== '/guestbook' && pathname !== '/comic' && !pathname.startsWith('/comic/') && pathname !== '/storyboard' && !pathname.startsWith('/storyboard/') && pathname !== '/illustration' && !pathname.startsWith('/illustration/') ? <NotFoundPage /> : null}
+      <CursorSparkles />
+      <GlobalBackButton />
+      <BgmPlayer />
     </AdminProvider>
   )
 }
