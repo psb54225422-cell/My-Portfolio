@@ -202,6 +202,10 @@ export default function CategoryPage() {
 
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex">
+        <div className="fixed bottom-4 right-4 z-50 rounded-full border border-primary/30 bg-background/80 px-3 py-1 text-[11px] font-semibold tracking-[0.2em] text-primary shadow-lg backdrop-blur">
+          LIVE BUILD 2026-05-13
+        </div>
+
         {/* Left side - Category list */}
         <div className="w-1/2 min-h-screen flex flex-col justify-center pl-8 md:pl-16 lg:pl-24">
           <div
