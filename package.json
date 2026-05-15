@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "npm --workspace frontend run dev",
     "build": "npm --workspace frontend run build",
-    "start": "node scripts/start.mjs",
+    "postinstall": "npm run build",
+    "start": "node backend/server.js",
     "lint": "npm --workspace frontend run lint"
   },
   "engines": {
